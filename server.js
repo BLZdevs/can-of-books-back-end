@@ -8,7 +8,8 @@ const app = express();
 app.use(cors());
 
 const PORT = process.env.PORT || 3001;
-// test to see if this would work
+
+// this is a commit to show you how to merge into the right branch 
 app.get('/test', (request, response) => {
 
   response.send('test request received')
