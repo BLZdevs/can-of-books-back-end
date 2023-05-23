@@ -4,6 +4,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const getBooks = require('./modules/getBooks');
 
 const app = express();
 app.use(cors());
@@ -23,5 +24,10 @@ app.get('/test', (request, response) => {
   response.send('test request received');
 
 });
+
+//Added on 5/22nd
+app.get('/getBooks', getBooks);
+
+app.get('/', (request,response) => response.status(200).send('Default route is working'));
 
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
