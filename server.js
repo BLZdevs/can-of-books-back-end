@@ -4,10 +4,11 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const getBooks = require('./modules/getBooks');
+const handleBooks = require('./modules/handleBooks');
 
 const app = express();
 app.use(cors());
+app.use(express.json());
 
 const PORT = process.env.PORT;
 
@@ -19,15 +20,21 @@ db.on('error', console.error.bind(console, 'connection error'));
 db.once('open',()=>console.log('Mongoose is connecting'));
 
 // this is a commit to show you how to merge into the right branch
-app.get('/test', (request, response) => {
-
-  response.send('test request received');
-
+app.get('/test', (req, res) => {
+  res.send('test request received');
 });
 
-//Added on 5/22nd
+app.get('/', (req,res) => res.status(200).send('Default route is working'));
 
-app.get('/', (request,response) => response.status(200).send('Default route is working'));
-app.get('/getBooks', getBooks);
+//Added on 5/22nd
+app.get('/getBooks', handleBooks.getBooks);
+
+//Added 5/24/23 by LMW
+app.post('/getBooks', handleBooks.postBooks);
+
+app.get('*', (req,res) => {
+  res.status(404).send('route not found.');
+});
+app.use((err,req,res) => res.status(500).send(err));
 
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
