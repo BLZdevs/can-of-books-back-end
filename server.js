@@ -26,8 +26,8 @@ app.get('/test', (request, response) => {
 });
 
 //Added on 5/22nd
-app.get('/getBooks', getBooks);
 
 app.get('/', (request,response) => response.status(200).send('Default route is working'));
+app.get('/getBooks', getBooks);
 
 app.listen(PORT, () => console.log(`listening on ${PORT}`));
