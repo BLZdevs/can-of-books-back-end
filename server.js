@@ -32,6 +32,9 @@ app.get('/getBooks', handleBooks.getBooks);
 //Added 5/24/23 by LMW
 app.post('/getBooks', handleBooks.postBooks);
 
+//Added 5/25/23 by Zg
+app.delete('/getBooks/:id',handleBooks.deleteBooks);
+
 app.get('*', (req,res) => {
   res.status(404).send('route not found.');
 });

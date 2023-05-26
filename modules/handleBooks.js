@@ -27,4 +27,11 @@ handleBooks.postBooks = function (req,res,next){
     .catch(err => next(err));
 };
 
+handleBooks.deleteBooks = function (req,res, next){
+  const {id} = req.params;
+  Books.findByIdAndDelete(id)
+    .then(deletedBook => res.status(204).send(deletedBook))
+    .catch(err => next(err));
+};
+
 module.exports = handleBooks;
