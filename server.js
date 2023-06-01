@@ -35,6 +35,10 @@ app.post('/getBooks', handleBooks.postBooks);
 //Added 5/25/23 by Zg
 app.delete('/getBooks/:id',handleBooks.deleteBooks);
 
+//Added 5/31/23 by Brandon
+app.put('/getBooks/:id', handleBooks.updateBooks);
+
+
 app.get('*', (req,res) => {
   res.status(404).send('route not found.');
 });

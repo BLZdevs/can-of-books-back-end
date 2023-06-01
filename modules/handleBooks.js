@@ -34,4 +34,13 @@ handleBooks.deleteBooks = function (req,res, next){
     .catch(err => next(err));
 };
 
+handleBooks.updateBooks = function (req, res, next) {
+  const {id} = req.params;
+  const data = req.body;
+  Books.findByIdAndUpdate(id, data,{new:true,overwrite:true} )
+    .then(updatedBooks => res.status(200).send(updatedBooks))
+    .catch(err => next(err));
+};
+
+
 module.exports = handleBooks;
