@@ -5,11 +5,10 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const handleBooks = require('./modules/handleBooks');
-
+const verifyUser = require('./modules/authorize');
 const app = express();
 app.use(cors());
 app.use(express.json());
-
 const PORT = process.env.PORT;
 
 const db = mongoose.connection;
@@ -26,6 +25,7 @@ app.get('/test', (req, res) => {
 
 app.get('/', (req,res) => res.status(200).send('Default route is working'));
 
+app.use(verifyUser);
 //Added on 5/22nd
 app.get('/getBooks', handleBooks.getBooks);
 

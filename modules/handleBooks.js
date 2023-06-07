@@ -5,11 +5,10 @@ const Books = require('../Models/books');
 const handleBooks = {};
 
 handleBooks.getBooks = function (req, res,next){
-  let queryObject = {};
-
+  let queryObject = {email: req.user.email};
   if(req.query.title){
     queryObject = {title: req.query.title};
-    // console.log(queryObject);
+    console.log(queryObject);
   }
 
   Books.find(queryObject)
@@ -21,8 +20,10 @@ handleBooks.getBooks = function (req, res,next){
 };
 
 handleBooks.postBooks = function (req,res,next){
+  
   const data = req.body;
-  Books.create(data)
+
+  Books.create({...data,email: req.user.email})
     .then(createdBook => res.status(201).send(createdBook))
     .catch(err => next(err));
 };
@@ -37,7 +38,7 @@ handleBooks.deleteBooks = function (req,res, next){
 handleBooks.updateBooks = function (req, res, next) {
   const {id} = req.params;
   const data = req.body;
-  Books.findByIdAndUpdate(id, data,{new:true,overwrite:true} )
+  Books.findByIdAndUpdate(id, {...data,email: req.user.email},{new:true,overwrite:true} )
     .then(updatedBooks => res.status(200).send(updatedBooks))
     .catch(err => next(err));
 };
